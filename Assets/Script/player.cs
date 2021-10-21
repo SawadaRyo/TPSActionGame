@@ -5,14 +5,15 @@ using UnityEngine.InputSystem;
 
 public class player : MonoBehaviour
 {
-    [SerializeField] Camera playerCamera = null;
-    [SerializeField] float speed = 2f;
-    [SerializeField] float jumpSpeed = 10f;
-    [SerializeField] float jumpGravityScale = 0.6f;
-    [SerializeField] float accelerration = 10f;
-    [SerializeField] float maxGroundAngle = 45;
-    [SerializeField] float groundDistance = 0.01f;
-    [SerializeField] LayerMask groundMask = ~0;
+    [SerializeField] Camera playerCamera = null;      //カメラ
+    //[SerializeField] float speed = 2f;　　　　　　    //移動スピード
+    [SerializeField] float jumpSpeed = 10f;　　　     //ジャンプ力
+    [SerializeField] float jumpGravityScale = 0.6f;   //ジャンプ中の重力調整
+    [SerializeField] float acceleration = 10f;        //移動加速度
+    [SerializeField] float maxGroundAngle = 45;       //
+    [SerializeField] float groundDistance = 0.01f;    //地面との相対距離
+    [SerializeField] float turn = 0.7f;               //方向転換の滑らかさ
+    [SerializeField] LayerMask groundMask = ~0;       //地面の接地判定のレイヤー
     Rigidbody rb;
     Rigidbody groundRigidbody = null;
     Vector3 groundNormal = Vector3.up;
@@ -31,13 +32,18 @@ public class player : MonoBehaviour
     void ApplyMotion()
     {
         Vector3 movementRight = Vector3.right;
-        Vector3 movementFoward = Vector3.forward;
+        Vector3 movementForward = Vector3.forward;
         if(playerCamera != null)
         {
             Vector3 camareRight = playerCamera.transform.right;
             Vector3 cameraFoward = playerCamera.transform.forward;
+            movementRight = ProjectOnPlane(camareRight, groundNormal).normalized;
+            movementForward = ProjectOnPlane(cameraFoward, groundNormal).normalized;
+            
         }
-        rb.AddForce(new Vector3(movementInput.x, 0f, movementInput.y) * accelerration, ForceMode.Acceleration);
+        Vector3 movement = movementRight * movementInput.x + movementForward * movementInput.y;
+        //rb.AddForce(new Vector3(movementInput.x, 0f, movementInput.y) * accelerration, ForceMode.Acceleration);
+        rb.AddForce(movement * acceleration, ForceMode.Acceleration);
     }
     void FixedUpdate()
     {
@@ -103,5 +109,9 @@ public class player : MonoBehaviour
         bool rayCastHit = Physics.SphereCast(sphereCastRay, capsuleCollider.radius, out hitInfo,groundDistance * 2f, groundMask);
         //Debug.Log(rayCastHit);
         return hitInfo;
+    }
+    Vector3 ProjectOnPlane(Vector3 vector,Vector3 normal)
+    {
+        return Vector3.Cross(normal,Vector3.Cross(vector,normal));
     }
 }
