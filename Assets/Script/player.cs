@@ -42,6 +42,12 @@ public class player : MonoBehaviour
             
         }
         Vector3 movement = movementRight * movementInput.x + movementForward * movementInput.y;
+        Vector3 rotateTarget = new Vector3(movement.x, 0f, movement.z);
+        if(rotateTarget.magnitude > 0.1f)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(rotateTarget);
+            transform.rotation = Quaternion.Lerp(lookRotation, transform.rotation, turn);
+        }
         //rb.AddForce(new Vector3(movementInput.x, 0f, movementInput.y) * accelerration, ForceMode.Acceleration);
         rb.AddForce(movement * acceleration, ForceMode.Acceleration);
     }
