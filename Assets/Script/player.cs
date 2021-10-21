@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class player : MonoBehaviour
 {
     [SerializeField] Camera playerCamera = null;      //カメラ
-    //[SerializeField] float speed = 2f;　　　　　　    //移動スピード
+    [SerializeField] GameObject avatar = null;        //AvatarObjectへの参照
+    [SerializeField] float speed = 2f;　　　　　　  　//移動スピード
     [SerializeField] float jumpSpeed = 10f;　　　     //ジャンプ力
     [SerializeField] float jumpGravityScale = 0.6f;   //ジャンプ中の重力調整
     [SerializeField] float acceleration = 10f;        //移動加速度
@@ -14,6 +15,7 @@ public class player : MonoBehaviour
     [SerializeField] float groundDistance = 0.01f;    //地面との相対距離
     [SerializeField] float turn = 0.7f;               //方向転換の滑らかさ
     [SerializeField] LayerMask groundMask = ~0;       //地面の接地判定のレイヤー
+    
     Rigidbody rb;
     Rigidbody groundRigidbody = null;
     Vector3 groundNormal = Vector3.up;
@@ -42,11 +44,14 @@ public class player : MonoBehaviour
             
         }
         Vector3 movement = movementRight * movementInput.x + movementForward * movementInput.y;
-        Vector3 rotateTarget = new Vector3(movement.x, 0f, movement.z);
-        if(rotateTarget.magnitude > 0.1f)
+        if(avatar != null)
         {
-            Quaternion lookRotation = Quaternion.LookRotation(rotateTarget);
-            transform.rotation = Quaternion.Lerp(lookRotation, transform.rotation, turn);
+            Vector3 rotateTarget = new Vector3(movement.x, 0f, movement.z);
+            if (rotateTarget.magnitude > 0.1f)
+            {
+                Quaternion lookRotation = Quaternion.LookRotation(rotateTarget);
+                avatar.transform.rotation = Quaternion.Lerp(lookRotation, avatar.transform.rotation, turn);
+            }
         }
         //rb.AddForce(new Vector3(movementInput.x, 0f, movementInput.y) * accelerration, ForceMode.Acceleration);
         rb.AddForce(movement * acceleration, ForceMode.Acceleration);
