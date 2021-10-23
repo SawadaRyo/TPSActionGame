@@ -7,12 +7,15 @@ using Cinemachine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] Vector2 rotationSpeed = new Vector2(-180, 180); //カメラの回転スピード（初期値は1秒間に180度）
+    [SerializeField] float cameraDistance = 2f;                      // 平均的なカメラの距離
+    [SerializeField] float lowAngleDistanceRatio = 0.5f;             // 低い時の距離の比率
+    [SerializeField] float highAngleDistanceRatio = 3f;              // 高い時の距離の比率
     [SerializeField] float inputMappingCurve = 5f;
-    [SerializeField] float minCameraAngle = -45;                    //X軸回転の下限
-    [SerializeField] float maxCameraAngle = 75;　　　　　　　　　　 //Y軸回転の上限
-    CinemachineVirtualCamera vCam = null;      　　                 //仮想カメラの参照
-    Cinemachine3rdPersonFollow follow = null;　　　                 //仮想カメラの追跡対象の参照
-    Vector2 cameraRotationInput = Vector2.zero;　　               　//カメラのRotationの参照
+    [SerializeField] float minCameraAngle = -45f;                     //X軸回転の下限
+    [SerializeField] float maxCameraAngle = 75f;　　　　　　　　　　  //Y軸回転の上限
+    CinemachineVirtualCamera vCam = null;      　　                  //仮想カメラの参照
+    Cinemachine3rdPersonFollow follow = null;　　　                  //仮想カメラの追跡対象の参照
+    Vector2 cameraRotationInput = Vector2.zero;　　               　 //カメラのRotationの参照
 
     void Start()
     {
@@ -51,6 +54,15 @@ public class CameraController : MonoBehaviour
 
                 // オイラー角度をクオータニオンに変換して追跡ターゲットの回転を変える
                 target.transform.rotation = Quaternion.Euler(targetEulerAngles);
+                //カメラの位置調整（カメラが低い位置に下がるほどキャラクターに近づいて、高くなるほど遠ざかる。）
+                if(follow)
+                {
+                    float anglePhase = (targetEulerAngles.x - minCameraAngle) / (maxCameraAngle - minCameraAngle);
+                    float lowCameraDistance = cameraDistance * lowAngleDistanceRatio;
+                    float highCameraDistance = cameraDistance * highAngleDistanceRatio;
+                    follow.CameraDistance = lowCameraDistance + (highCameraDistance - lowCameraDistance) * anglePhase;
+
+                }
             }
         }
     }
