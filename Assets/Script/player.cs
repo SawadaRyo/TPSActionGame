@@ -53,8 +53,22 @@ public class player : MonoBehaviour
                 avatar.transform.rotation = Quaternion.Lerp(lookRotation, avatar.transform.rotation, turn);
             }
         }
-        //rb.AddForce(new Vector3(movementInput.x, 0f, movementInput.y) * accelerration, ForceMode.Acceleration);
-        rb.AddForce(movement * acceleration, ForceMode.Acceleration);
+        Vector3 velcity = rb.velocity;
+        if(groundRigidbody != null)
+        {
+            velcity -= groundRigidbody.velocity;
+        }
+        Vector3 groundVelocity = ProjectOnPlane(rb.velocity, groundNormal);
+        float groundAngle = 90f - Mathf.Asin(groundNormal.y) * 180f / Mathf.PI;
+        bool movingDownhill = movement.y <= 0f;
+        if(groundAngle <= maxGroundAngle || movingDownhill)
+        {
+            if (groundVelocity.magnitude < speed)
+            {
+                //rb.AddForce(new Vector3(movementInput.x, 0f, movementInput.y) * accelerration, ForceMode.Acceleration);
+                rb.AddForce(movement * acceleration, ForceMode.Acceleration);
+            }
+        }
     }
     void FixedUpdate()
     {
