@@ -131,6 +131,13 @@ public class player : MonoBehaviour
         movementInput = input;
         
     }
+    void Attack(bool state)
+    {
+        if(state)
+        {
+            animator.SetTrigger("Slash");
+        }
+    }
     void OnMove(InputValue inputValue)
     {
         Move(inputValue.Get<Vector2>());
@@ -138,6 +145,10 @@ public class player : MonoBehaviour
     void OnJump(InputValue inputValue)
     {
         Jump(inputValue.isPressed);
+    }
+    void OnAttack(InputValue inputValue)
+    {
+        Attack(inputValue.isPressed);
     }
     RaycastHit CheckForGround()
     {
