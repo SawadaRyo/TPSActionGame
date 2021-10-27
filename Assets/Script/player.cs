@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
 public class player : MonoBehaviour
 {
     [SerializeField] Camera playerCamera = null;      //カメラ
@@ -22,13 +25,16 @@ public class player : MonoBehaviour
     Vector3 groundContactPoint = Vector3.zero;
     Vector2 moveDirection = Vector2.zero;
     Vector2 movementInput = Vector2.zero;
-    bool isOnGround = false;
-    bool isJunping = false;
+    bool isOnGround = false;　　　　　　　　　　　　　//接地判定
+    bool isJunping = false;                           //ジャンプ判定
+    Vector3 groundVelocity = Vector3.zero;            //移動速度
     CapsuleCollider capsuleCollider;
+    Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
     }
     void ApplyMotion()
@@ -53,12 +59,12 @@ public class player : MonoBehaviour
                 avatar.transform.rotation = Quaternion.Lerp(lookRotation, avatar.transform.rotation, turn);
             }
         }
-        Vector3 velcity = rb.velocity;
+        Vector3 velocity = rb.velocity;
         if(groundRigidbody != null)
         {
-            velcity -= groundRigidbody.velocity;
+            velocity -= groundRigidbody.velocity;
         }
-        Vector3 groundVelocity = ProjectOnPlane(rb.velocity, groundNormal);
+        groundVelocity = ProjectOnPlane(velocity, groundNormal);
         float groundAngle = 90f - Mathf.Asin(groundNormal.y) * 180f / Mathf.PI;
         bool movingDownhill = movement.y <= 0f;
         if(groundAngle <= maxGroundAngle || movingDownhill)
@@ -96,12 +102,24 @@ public class player : MonoBehaviour
             rb.AddForce(Physics.gravity * rb.mass * (jumpGravityScale - 1f));
         }
     }
+    void Update()
+    {
+        if(animator != null)
+        {
+            animator.SetBool("OnGround", isOnGround);
+            animator.SetFloat("MoveSpeed", groundVelocity.magnitude);
+        }
+    }
     void Jump(bool state)
     {
         if(state && isOnGround)
         {
             rb.velocity += Vector3.up * jumpSpeed;
             isJunping = true;
+            //if(animator != null)
+            //{
+            //    animator.SetTrigger("Jump");
+            //}
         }
         if(!state)
         {

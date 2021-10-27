@@ -20,10 +20,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         vCam = GetComponent<CinemachineVirtualCamera>();
-        if(vCam != null)
-        {
-            follow = vCam.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-        }
+        if (vCam != null)follow = vCam.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
     }
     void FixedUpdate()
     {
