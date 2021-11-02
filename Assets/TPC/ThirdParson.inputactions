@@ -40,7 +40,7 @@
                 {
                     "name": "Attack",
                     "type": "Button",
-                    "id": "19b22726-7fc0-4411-a3ac-fff5f99d857f",
+                    "id": "5719bb0c-e5c8-4f4b-8404-b1f59948ec41",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=2)"
@@ -291,9 +291,9 @@
                 },
                 {
                     "name": "",
-                    "id": "2fad4875-0e84-4b9a-8de3-2eb0bd7939a4",
+                    "id": "e13161a5-0dfe-47d2-9042-116818878b07",
                     "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Attack",
