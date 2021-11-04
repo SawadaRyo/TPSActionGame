@@ -72,7 +72,7 @@ public class player : MonoBehaviour
             if (groundVelocity.magnitude < speed)
             {
                 //rb.AddForce(new Vector3(movementInput.x, 0f, movementInput.y) * accelerration, ForceMode.Acceleration);
-                rb.AddForce(movement * acceleration, ForceMode.Acceleration);
+                rb.AddForce(movement * acceleration, ForceMode.Force);
             }
         }
     }
