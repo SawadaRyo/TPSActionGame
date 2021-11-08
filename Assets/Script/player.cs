@@ -11,8 +11,8 @@ public class player : MonoBehaviour
     [SerializeField] Camera playerCamera = null;      //カメラ
     [SerializeField] GameObject avatar = null;        //AvatarObjectへの参照
     [SerializeField] float speed = 2f;　　　　　　  　//移動スピード
-    [SerializeField] float jumpSpeed = 10f;　　　     //ジャンプ力
-    [SerializeField] float jumpGravityScale = 0.6f;   //ジャンプ中の重力調整
+    //[SerializeField] float jumpSpeed = 10f;　　　     //ジャンプ力
+    //[SerializeField] float jumpGravityScale = 0.6f;   //ジャンプ中の重力調整
     [SerializeField] float acceleration = 10f;        //移動加速度
     [SerializeField] float maxGroundAngle = 45;       //
     [SerializeField] float groundDistance = 0.01f;    //地面との相対距離
@@ -20,22 +20,24 @@ public class player : MonoBehaviour
     [SerializeField] LayerMask groundMask = ~0;       //地面の接地判定のレイヤー
     
     Rigidbody rb;
-    Rigidbody groundRigidbody = null;
-    Vector3 groundNormal = Vector3.up;
-    Vector3 groundContactPoint = Vector3.zero;
+    Rigidbody groundRigidbody = null;　　　　　　　　 //地面のRigidbody(リフトなど）
+    Vector3 groundNormal = Vector3.up;                //地面の法線（通常)
+    Vector3 groundContactPoint = Vector3.zero;        //地面と接触している点の座標
     Vector2 moveDirection = Vector2.zero;
     Vector2 movementInput = Vector2.zero;
     bool isOnGround = false;　　　　　　　　　　　　　//接地判定
-    bool isJunping = false;                           //ジャンプ判定
+    //bool isJunping = false;                           //ジャンプ判定
     Vector3 groundVelocity = Vector3.zero;            //移動速度
     CapsuleCollider capsuleCollider;
     Animator animator;
+    bool isAttack;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+        isAttack = false;
     }
     void ApplyMotion()
     {
@@ -73,6 +75,7 @@ public class player : MonoBehaviour
             {
                 //rb.AddForce(new Vector3(movementInput.x, 0f, movementInput.y) * accelerration, ForceMode.Acceleration);
                 rb.AddForce(movement * acceleration, ForceMode.Force);
+                //rb.velocity = movement * acceleration;
             }
         }
     }
@@ -95,41 +98,40 @@ public class player : MonoBehaviour
         }
         if (rb.velocity.y < 0)
         {
-            isJunping = false;
+            //isJunping = false;
         }
-        if(isJunping)
-        {
-            rb.AddForce(Physics.gravity * rb.mass * (jumpGravityScale - 1f));
-        }
+        //if(isJunping)
+        //{
+        //    rb.AddForce(Physics.gravity * rb.mass * (jumpGravityScale - 1f));
+        //}
     }
     void Update()
     {
         if(animator != null)
         {
             animator.SetBool("OnGround", isOnGround);
-            animator.SetFloat("MoveSpeed", groundVelocity.magnitude);
+            SetAnimationMove();
         }
     }
     void Jump(bool state)
     {
         if(state && isOnGround)
         {
-            rb.velocity += Vector3.up * jumpSpeed;
-            isJunping = true;
+            //rb.velocity += Vector3.up * jumpSpeed;
+            //isJunping = true;
             //if(animator != null)
             //{
             //    animator.SetTrigger("Jump");
             //}
         }
-        if(!state)
-        {
-            isJunping = false;
-        }
+        //if(!state)
+        //{
+        //    //isJunping = false;
+        //}
     }
     void Move(Vector2 input)
     {
         movementInput = input;
-        
     }
     void Attack(bool state)
     {
@@ -138,11 +140,19 @@ public class player : MonoBehaviour
             if (state)
             {
                 animator.SetTrigger("Slash");
+                Debug.Log("true");
+                isAttack = true;
+            }
+            else
+            {
+                Debug.Log("false");
+                isAttack = false;
             }
         }
     }
     void OnMove(InputValue inputValue)
     {
+        if (isAttack) return;
         Move(inputValue.Get<Vector2>());
     }
     void OnJump(InputValue inputValue)
@@ -171,19 +181,10 @@ public class player : MonoBehaviour
     {
         return Vector3.Cross(normal,Vector3.Cross(vector,normal));
     }
-
-     void OnGUI()
-   {
-       if (Gamepad.current == null) return;
-
-       GUILayout.Label($"leftStick: {Gamepad.current.leftStick.ReadValue()}");
-       GUILayout.Label($"buttonNorth: {Gamepad.current.buttonNorth.isPressed}");
-       GUILayout.Label($"buttonSouth: {Gamepad.current.buttonSouth.isPressed}");
-       GUILayout.Label($"buttonEast: {Gamepad.current.buttonEast.isPressed}");
-       GUILayout.Label($"buttonWest: {Gamepad.current.buttonWest.isPressed}");
-       GUILayout.Label($"leftShoulder: {Gamepad.current.leftShoulder.ReadValue()}");
-       GUILayout.Label($"leftTrigger: {Gamepad.current.leftTrigger.ReadValue()}");
-       GUILayout.Label($"rightShoulder: {Gamepad.current.rightShoulder.ReadValue()}");
-       GUILayout.Label($"rightTrigger: {Gamepad.current.rightTrigger.ReadValue()}");
-   }
+    void SetAnimationMove()
+    {
+        //var velocityXZ = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));
+        animator.SetFloat("MoveSpeed", groundVelocity.magnitude);
+        //animator.SetFloat("MoveSpeed", velocityXZ.magnitude);
+    }
 }
