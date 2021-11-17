@@ -312,7 +312,7 @@
                     "name": "",
                     "id": "55158376-a8fb-439d-b293-b69fc5cdc174",
                     "path": "<Gamepad>/buttonEast",
-                    "interactions": "Press",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Avoidance",
