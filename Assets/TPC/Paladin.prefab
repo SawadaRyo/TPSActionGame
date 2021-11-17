@@ -1456,7 +1456,6 @@ GameObject:
   - component: {fileID: 4792482694877115140}
   - component: {fileID: 4792482694877115141}
   - component: {fileID: 4792482694877115194}
-  - component: {fileID: 4792482694877115143}
   m_Layer: 0
   m_Name: Paladin
   m_TagString: Untagged
@@ -1545,8 +1544,7 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   avatar: {fileID: 0}
   speed: 2
-  jumpSpeed: 10
-  jumpGravityScale: 0.6
+  avoidancePower: 5
   acceleration: 10
   maxGroundAngle: 45
   groundDistance: 0.01
@@ -1554,24 +1552,9 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4792482694877115143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5639413071703957283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c873a6d49147994e9dd2d944e32df98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rightTarget: {fileID: 0}
-  leftTarget: {fileID: 0}
-  rightPositionWeight: 0
-  rightRotationWeight: 0
-  leftPositionWeight: 0
-  leftRotationWeight: 0
+  living: 0
+  spc: 0
+  isAttack: 0
 --- !u!1 &5711733157481251954
 GameObject:
   m_ObjectHideFlags: 0
