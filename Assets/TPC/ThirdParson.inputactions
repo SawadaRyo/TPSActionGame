@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "LockOn",
+                    "type": "Button",
+                    "id": "06e191ff-3de3-4ee3-b701-2efcf76df58d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -301,7 +309,7 @@
                     "name": "",
                     "id": "e13161a5-0dfe-47d2-9042-116818878b07",
                     "path": "<Gamepad>/rightShoulder",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Attack",
@@ -316,6 +324,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Avoidance",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ffd23942-0548-41dc-bc43-2d3db9c66ecd",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "LockOn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
