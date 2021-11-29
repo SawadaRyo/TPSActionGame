@@ -5934,7 +5934,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh15146
+  m_Name: pb_Mesh15152
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6490,7 +6490,7 @@ GameObject:
   - component: {fileID: 804249348}
   m_Layer: 0
   m_Name: EnemyWeapon
-  m_TagString: Untagged
+  m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6507,7 +6507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd699fa60eb253749811df2b8ba20fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPower: 100
+  attackPower: 20
   attackPowerFire: 0
   attackPowerThunder: 0
   attackPowerSorcery: 0
@@ -6515,7 +6515,7 @@ MonoBehaviour:
   attackPowerWater: 0
   dsp: 15
   weaponLevel: 1
-  capsuleCollider: {fileID: 0}
+  capsuleCollider: {fileID: 804249349}
 --- !u!136 &804249349
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6524,8 +6524,8 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 804249347}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -6597,7 +6597,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh15134
+  m_Name: pb_Mesh15140
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6884,7 +6884,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.4404235, y: 1.549, z: -7.117231}
+  m_LocalPosition: {x: -2.4404235, y: 1.549, z: -8.017248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7006,7 +7006,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh15250
+  m_Name: pb_Mesh15256
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8259,7 +8259,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh15270
+  m_Name: pb_Mesh15276
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8618,23 +8618,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 150
-  maxSp: 100
-  rSp: 2
   HpSlider: {fileID: 685804640}
-  SpSlider: {fileID: 1404329489}
-  moveManager: {fileID: 2059103343}
---- !u!114 &2059103343 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4792482694877115194, guid: c788f18a467305247a08e47134e5d539,
-    type: 3}
-  m_PrefabInstance: {fileID: 4792482695450139557}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2059103340}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55058bc3428668f46bd4b41488d2b077, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  moveManager: {fileID: 2059103344}
 --- !u!114 &2059103344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8649,9 +8634,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   runSpeed: 15
-  avoidanceSpeed: 12
+  avoidanceSpeed: 50
   turn: 0.7
   avatar: {fileID: 929410091}
+  living: 0
 --- !u!136 &2059103345 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 4792482694877115141, guid: c788f18a467305247a08e47134e5d539,
@@ -8689,6 +8675,21 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 963194227}
+--- !u!114 &2059103349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059103340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b44e0278615719c4cafa84a3052985c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSp: 100
+  rSp: 1
+  SpSlider: {fileID: 1404329489}
 --- !u!1001 &4792482695450139557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8752,6 +8753,11 @@ PrefabInstance:
       propertyPath: avatar
       value: 
       objectReference: {fileID: 929410091}
+    - target: {fileID: 4792482694877115194, guid: c788f18a467305247a08e47134e5d539,
+        type: 3}
+      propertyPath: isAttack
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4792482694877115194, guid: c788f18a467305247a08e47134e5d539,
         type: 3}
       propertyPath: m_Enabled
@@ -8845,7 +8851,7 @@ PrefabInstance:
     - target: {fileID: 6064830210308853723, guid: c788f18a467305247a08e47134e5d539,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.800001
+      value: -7.7000184
       objectReference: {fileID: 0}
     - target: {fileID: 6064830210308853723, guid: c788f18a467305247a08e47134e5d539,
         type: 3}
@@ -8891,6 +8897,7 @@ PrefabInstance:
     - {fileID: 5971828788075057447, guid: c788f18a467305247a08e47134e5d539, type: 3}
     - {fileID: 7329884391220353745, guid: c788f18a467305247a08e47134e5d539, type: 3}
     - {fileID: 0}
+    - {fileID: 4792482694877115194, guid: c788f18a467305247a08e47134e5d539, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c788f18a467305247a08e47134e5d539, type: 3}
 --- !u!1 &4792482695450139558 stripped
 GameObject:
@@ -8920,7 +8927,7 @@ MonoBehaviour:
   ShoulderOffset: {x: 0, y: -0.4, z: -1.68}
   VerticalArmLength: 0.4
   CameraSide: 1
-  CameraDistance: 5.050001
+  CameraDistance: 5.950019
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 0
