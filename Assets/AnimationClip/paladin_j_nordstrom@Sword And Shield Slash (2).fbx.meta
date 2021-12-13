@@ -21,7 +21,8 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Copied Avatar Rig Configuration mis-match. Transform hierarchy
+      does not match:\n\tTransform 'mixamorig:Hips' for human bone 'Hips' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -525,23 +526,33 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: paladin_j_nordstrom(Clone)
+    - name: paladin_prop_j_nordstrom(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Paladin_J_Nordstrom
-      parentName: paladin_j_nordstrom(Clone)
+      parentName: paladin_prop_j_nordstrom(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Paladin_J_Nordstrom_Helmet
-      parentName: paladin_j_nordstrom(Clone)
+      parentName: paladin_prop_j_nordstrom(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Paladin_J_Nordstrom_Sword
+      parentName: paladin_prop_j_nordstrom(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Paladin_J_Nordstrom_Shield
+      parentName: paladin_prop_j_nordstrom(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Hips
-      parentName: paladin_j_nordstrom(Clone)
+      parentName: paladin_prop_j_nordstrom(Clone)
       position: {x: -0.0003427926, y: 0.95579463, z: 0.0046594837}
       rotation: {x: -1.7347235e-16, y: 2.7755576e-15, z: -1.4952993e-16, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -731,6 +742,11 @@ ModelImporter:
       position: {x: 0.01896509, y: -0.011929633, z: 0.009787331}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+    - name: Sword_joint
+      parentName: RightHand
+      position: {x: 0.079892136, y: -0.028230647, z: -0.006267043}
+      rotation: {x: -1.0339758e-25, y: -0, z: -2.1902648e-27, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: LeftShoulder
       parentName: Spine2
       position: {x: -0.059349764, y: 0.13670222, z: -0.0166261}
@@ -856,6 +872,11 @@ ModelImporter:
       position: {x: -0.018965553, y: -0.011929062, z: 0.009787144}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+    - name: Shield_joint
+      parentName: LeftForeArm
+      position: {x: -0.1468061, y: 0.060436804, z: 0.0039736056}
+      rotation: {x: -0, y: -0, z: -1.0097419e-26, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: Neck
       parentName: Spine2
       position: {x: -0.0002444122, y: 0.15862255, z: -0.01675821}
@@ -883,7 +904,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 86d4255b825b2b440a0c83462a313813,
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 9a89c2b121ce82048aa4f82c6cf5c660,
     type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
