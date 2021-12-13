@@ -80,19 +80,7 @@ public class MoveManager : MonoBehaviour
         return hitInfo;
     }
 
-    //void Target()
-    //{
-    //    sphereCollider = 
-    //}
-    //ロックオンできる敵の取得
-    List<SphereCollider> LockOnEnemies(List<SphereCollider> distance)
-    {
-        return distance.Where(x => x.tag == "Enemy").Where(x =>
-        {
-            Vector3 point = Camera.main.WorldToViewportPoint(x.transform.position); //ワールド座標をCanvas上の座標に変換
-            return point.x > 0 && point.x < 1 && point.y > -0.25 && point.y < 0.9; //Canvas上の画角内の敵を取得
-        }).ToList();//取得した敵をLsist化
-    }
+    
 
     void FixedUpdate()
     {

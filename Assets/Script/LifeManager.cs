@@ -8,7 +8,7 @@ public class LifeManager : MonoBehaviour
 {
     [SerializeField] int maxHp = 150;
     [SerializeField] Slider HpSlider;
-    [SerializeField] MoveManager moveManager;
+    [SerializeField] string judSubject = "";
 
 
     GameObject enemyWeapon;
@@ -27,12 +27,6 @@ public class LifeManager : MonoBehaviour
         enemyWeapon = GameObject.Find("EnemyWeapon");
         damageFlg = false;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     
     void OnTriggerEnter(Collider other)
     {
@@ -43,7 +37,15 @@ public class LifeManager : MonoBehaviour
     }
     void DeathOrLive()
     {
-        moveManager.living = !moveManager.living;
+        if(judSubject == "Player")
+        {
+            MoveManager moveManager = GetComponent<MoveManager>();
+            moveManager.living = !moveManager.living;
+        }
+        else if(judSubject == "Enemy")
+        {
+            EnemyActionBase enemyLife = GetComponent<EnemyActionBase>();
+        }
     }
     
     void Damage()
