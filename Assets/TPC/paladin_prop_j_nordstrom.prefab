@@ -2145,7 +2145,7 @@ GameObject:
   - component: {fileID: 3259182197827441783}
   m_Layer: 0
   m_Name: paladin_prop_j_nordstrom
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2549,7 +2549,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7152556486366668567}
   - component: {fileID: 5205740710396363058}
-  - component: {fileID: 698996374}
   - component: {fileID: 4714230852703290175}
   m_Layer: 0
   m_Name: CM vcam3
@@ -2608,26 +2607,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1679733360068583901}
---- !u!114 &698996374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8392501718739395454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d7f75f6c930bd64ba36da61fbdfedc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: {x: -180, y: 180}
-  cameraDistance: 2
-  lowAngleDistanceRatio: 0.5
-  highAngleDistanceRatio: 3
-  inputMappingCurve: 5
-  minCameraAngle: -45
-  maxCameraAngle: 75
-  enemies: []
 --- !u!114 &4714230852703290175
 MonoBehaviour:
   m_ObjectHideFlags: 0

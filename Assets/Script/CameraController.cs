@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField] SphereCollider playerLockOnRenge;
     [SerializeField] Vector2 rotationSpeed = new Vector2(-180, 180); //カメラの回転スピード（初期値は1秒間に180度）
     [SerializeField] float cameraDistance = 2f;                      // 平均的なカメラの距離
     [SerializeField] float lowAngleDistanceRatio = 0.5f;             // 低い時の距離の比率
@@ -15,22 +17,26 @@ public class CameraController : MonoBehaviour
     [SerializeField] float minCameraAngle = -45f;                　　//X軸回転の下限
     [SerializeField] float maxCameraAngle = 75f;　　　　　　　　　　 //Y軸回転の上限
     //[SerializeField] Enemy[] enemies = default;          　　　　//ロックオン対象の取得
+    float targetRengeRadios;
     CinemachineVirtualCamera vCam = null;      　　                  //仮想カメラの参照
     Cinemachine3rdPersonFollow follow = null;　　　                  //仮想カメラの追跡対象の参照
-    Vector2 cameraRotationInput = Vector2.zero;　　               　 //カメラのRotationの参照
+    Vector2 cameraRotationInput = Vector2.zero;                   //カメラのRotationの参照
+    List<Collider> inRengeEnemies;
+    Vector3 getterGetRengeCenter = Vector3.zero;
 
     void Start()
     {
         vCam = GetComponent<CinemachineVirtualCamera>();
         if (vCam != null)follow = vCam.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+        targetRengeRadios = playerLockOnRenge.radius;
     }
     void FixedUpdate()
     {
         if (vCam == null) return;
-        Transform target = vCam.Follow;
+        Transform target = vCam.Follow; //バーチャルカメラの追跡ターゲットを取得
         if (target != null)
         {
-            //対象の回転を取得
+            //対象の回転をオイラー角で取得
             Vector3 targetEulerAngles = target.rotation.eulerAngles;
 
             float curve = Mathf.Max(1, inputMappingCurve);
@@ -59,27 +65,27 @@ public class CameraController : MonoBehaviour
                 float lowCameraDistance = cameraDistance * lowAngleDistanceRatio;
                 float highCameraDistance = cameraDistance * highAngleDistanceRatio;
                 follow.CameraDistance = lowCameraDistance + (highCameraDistance - lowCameraDistance) * anglePhase;
-
             }
-            }
+        }
         
     }
-    //void LockOn(float distance,bool state)
-    //{
-    //    if (!state) return;
-    //    var nearenemy = enemies.OrderBy(x => distance > Vector3.Distance(x.transform.position, this.gameObject.transform.position)).ToList();
-    //    if (nearenemy == null)
-    //    {
-    //        var player = GameObject.Find("Paladin");
-    //    }
-    //}
-
-    //void Target()
-    //{
-    //    sphereCollider = 
-    //}
+    Vector3 GetTargetRengeCenter()
+    {
+        Vector3 center = this.transform.position + transform.forward * getterGetRengeCenter.z
+             + this.transform.up * getterGetRengeCenter.y
+             + this.transform.right * getterGetRengeCenter.z;
+        return center;
+    }
+    void Target(bool lockOnFlg)
+    {
+        if (lockOnFlg)
+        {
+            inRengeEnemies = LockOnEnemies(Physics.OverlapSphere(GetTargetRengeCenter(), targetRengeRadios).ToList());
+            transform.DOLookAt(inRengeEnemies[0].transform.position, 0.5f);
+        }
+    }
     //ロックオンできる敵の取得
-    List<SphereCollider> LockOnEnemies(List<SphereCollider> distance)
+    List<Collider> LockOnEnemies(List<Collider> distance)
     {
         return distance.Where(x => x.tag == "Enemy").Where(x =>
         {
@@ -90,6 +96,7 @@ public class CameraController : MonoBehaviour
     void Look(Vector2 input)
     {
         cameraRotationInput = input;
+        //Debug.Log(input);
     }
     void OnLook(InputValue inputValue)
     {
@@ -98,6 +105,6 @@ public class CameraController : MonoBehaviour
     //void OnLockOn(InputValue inputValue)
     //{
     //    Debug.Log("ON");
-    //    LockOn(5f,inputValue.isPressed);
+    //    Target(inputValue.isPressed);
     //}
 }
