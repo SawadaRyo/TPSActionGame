@@ -124,11 +124,13 @@ public class MoveManager : MonoBehaviour
         if (!living) return;
         if (isAttack) return;
         Move(inputValue.Get<Vector2>());
+        //Debug.Log(inputValue.Get<Vector2>());
     }
     void OnAttack(InputValue inputValue)
     {
         if (!living) return;
         Attack(inputValue.isPressed);
+        Debug.Log(inputValue.isPressed);
     }
     void OnAvoidance(InputValue inputValue)
     {

@@ -31,7 +31,7 @@
                 },
                 {
                     "name": "Jump",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "5103d209-2699-430e-9833-93a1649bdbb5",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -39,7 +39,7 @@
                 },
                 {
                     "name": "Attack",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "5719bb0c-e5c8-4f4b-8404-b1f59948ec41",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -47,7 +47,7 @@
                 },
                 {
                     "name": "Avoidance",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "2e8cea4d-c0ab-4696-8013-32ca2abb88ad",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -55,7 +55,7 @@
                 },
                 {
                     "name": "LockOn",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "06e191ff-3de3-4ee3-b701-2efcf76df58d",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -63,7 +63,7 @@
                 },
                 {
                     "name": "Command",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "4a85b5f4-07d9-459a-a40c-f5bd8a65fb48",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -317,9 +317,9 @@
                     "name": "",
                     "id": "e13161a5-0dfe-47d2-9042-116818878b07",
                     "path": "<Gamepad>/rightShoulder",
-                    "interactions": "Press",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
-                    "groups": "Gamepad;Keyboard&Mouse",
+                    "groups": "Gamepad",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
